@@ -28,7 +28,8 @@ const glurecord = new Schema({
     enum: dinnerStatusEnum
   },
   level: {    
-    type: Number
+    type: Number,
+    required: [true, 'Falta registrar nivel de glucosa obtenido en el test.']
   }
 }, { timestamps: true });
 
