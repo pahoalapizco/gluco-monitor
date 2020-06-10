@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const dayPeriodValues = {
+  values: ['Morning', 'Afternoon', 'Night'],
+  message: `{VALUE} isn't valid day period`
+};
+
 const glurecord = new Schema({
   day: {
     type: Date,
@@ -9,6 +14,10 @@ const glurecord = new Schema({
   hour: {
     type: String,
     required: [true, 'Falta registrar la hora en que se realizó el test.']
+  },
+  dayPeriod: {
+    type: String,
+    enum: dayPeriodValues,
   },
   dinner: {
     title: { type: String },
