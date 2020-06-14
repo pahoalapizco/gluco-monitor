@@ -12,7 +12,6 @@ class GlucoseRecordService {
   }
 
   async createRecord({ record }) {
-    debug(record)
     const result = await this._model.create(record);
     return result || [];
   }

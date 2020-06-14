@@ -4,7 +4,8 @@
   "description": "API REST para registrar los nieveles de glucosa en la sangre de pacientes diabeticos ",
   "main": "index.js",
   "scripts": {
-    "dev": "set DEBUG=app:* && nodemon index.js"
+    "dev": "set DEBUG=app:* && nodemon index.js",
+    "gluco:seed": "set DEBUG=seeders:* && node scripts/glucoSeed.js"
   },
   "repository": {
     "type": "git",
