@@ -7,7 +7,8 @@ const StatsRouter = (app) => {
 
   app.use('/api/stats', router);
 
-  router.get('/day-level/:year', StatsController.getLevelOgYear);
+  router.get('/day-level/:year', StatsController.getLevelOfYear);
+  router.get('/day-level/:year/:month', StatsController.getLevelPerMonth);
 }
 
 module.exports = StatsRouter;

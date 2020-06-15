@@ -32,11 +32,32 @@ class GlucoseRecordService {
     };
 
     const records = await GlucoseRecord.find(query).sort({ day: -1 });    
-    const maxLevel = records
+    const levelOfYear = records
       .sort((a, b) => sortBy ? b.level - a.level : a.level - b.level)
       .shift();
 
-    return maxLevel || [];
+    return levelOfYear || [];
+  }
+  
+  /**
+   * 
+   * @param {int} year 
+   * @param {int} month 
+   * @param {boolean} sortBy true get Higher to lower
+   */
+  async getLevelPerMonth (year, month, sortBy) {
+    const start = new Date(year, month); // first day 
+    const end = new Date(year, month + 1, 0); // last day
+    const query = {
+      day: {
+        $gte: start,
+        $lt: end
+      }
+    };
+    const records = await GlucoseRecord.find(query).sort({ day: -1 });    
+    const levelOfMonth = records.sort((a, b) => sortBy ? b.level - a.level : a.level - b.level).shift();
+    
+    return levelOfMonth || [];
   }
 }
 
