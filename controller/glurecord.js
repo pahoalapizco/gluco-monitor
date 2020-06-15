@@ -6,8 +6,9 @@ const service = new GlucoseRecordService();
 const controller = {};
 
 controller.getRecords = async (req, res, next) => {
+  const { day, month } = req.query;
   try {
-    const records = await service.getRecords();
+    const records = await service.getRecords(day, Boolean(month));
     responses.success(res, records);
   } catch(error) {
     next(error);

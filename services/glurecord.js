@@ -6,8 +6,27 @@ class GlucoseRecordService {
     this._model = GlucoseRecord;
   }
 
-  async getRecords() {
-    const result = await this._model.find();
+  async getRecords(day, byMonth = false) {
+    debug(day);
+    let query = {};
+    if(day) {
+      query = { day };
+
+      if(byMonth) {
+        const date = new Date(day);
+        const start = new Date(date.getFullYear(), date.getMonth()); // first day 
+        const end = new Date(date.getFullYear(), date.getMonth() + 1, 0); // last day
+
+        query = {
+          day: {
+            $gte: start,
+            $lt: end
+          }
+        };
+      }
+    }
+
+    const result = await this._model.find(query).sort({ day: -1 });
     return result || [];
   }
 
@@ -31,7 +50,7 @@ class GlucoseRecordService {
       }
     };
 
-    const records = await GlucoseRecord.find(query).sort({ day: -1 });    
+    const records = await GlucoseRecord.find(query);    
     const levelOfYear = records
       .sort((a, b) => sortBy ? b.level - a.level : a.level - b.level)
       .shift();
@@ -54,7 +73,7 @@ class GlucoseRecordService {
         $lt: end
       }
     };
-    const records = await GlucoseRecord.find(query).sort({ day: -1 });    
+    const records = await GlucoseRecord.find(query);    
     const levelOfMonth = records.sort((a, b) => sortBy ? b.level - a.level : a.level - b.level).shift();
     
     return levelOfMonth || [];
