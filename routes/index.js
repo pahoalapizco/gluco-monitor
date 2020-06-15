@@ -1,3 +1,4 @@
 module.exports = {
-  GlucoseRecordRouter: require('./glurecord')
+  GlucoseRecordRouter: require('./glurecord'),
+  StatsRouter: require('./stats')
 };

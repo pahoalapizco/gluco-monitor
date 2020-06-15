@@ -1,3 +1,4 @@
 module.exports = {
-  GlucoseRecordController: require('./glurecord')
+  GlucoseRecordController: require('./glurecord'),
+  StatsController: require('./stats')
 };
